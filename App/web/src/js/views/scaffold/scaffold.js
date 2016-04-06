@@ -8,12 +8,8 @@ import scaffoldStores from './Scaffold-Store';
 // Flux Dispatcher
 import fluxDispatcher from '../../components/drugs/Drugs-Dispatcher';
 
-// App Bar
-import AppBar from 'material-ui/lib/app-bar';
-
-// Toolbar
-import Toolbar from 'material-ui/lib/toolbar/toolbar';
-import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
+// Component: Header
+import Header from '../../components/header/Header.jsx';
 
 // Canvas
 import AppCanvas from 'material-ui/lib/app-canvas';
@@ -33,18 +29,8 @@ const floatingActionButtonStyle = {
 
 import ListDrugs from '../../components/drugs/Drugs';
 
-// Application Bar Configuration
-const appbarStyle = {
-    position: 'fixed',
-    height: 150
-};
-
-const clearfixStyle = {
-  padding: '80px 24px'
-};
-
 // Dialog
-import Dialog from '../../components/material-ui/dialog/dialog';
+import Dialog from '../../components/material-ui/dialog/dialog.jsx';
 
 class Scaffold extends React.Component {
 
@@ -71,7 +57,7 @@ class Scaffold extends React.Component {
             dialogData: {
                 'name': '',
                 'howoften': '',
-                'nextTakeHour': new Date()
+                'nextTakeHour': null
             }
         });
     }
@@ -80,6 +66,7 @@ class Scaffold extends React.Component {
 		return (
 			<div>
 
+                {/* Dialog */}
                 <Dialog
                 title="My new drug:"
                 confirmationLabel="Save"
@@ -87,7 +74,8 @@ class Scaffold extends React.Component {
                 drug={this.state.dialogData}
                 />
 
-                <div style={{position: 'fixed', top: 130, left: 10, zIndex: 1500}}>
+                {/* Floating Button */}
+                <div style={{position: 'fixed', bottom: 20, right: 20, zIndex: 1500}}>
                     <FloatingActionButton
                     mini={true}
                     onTouchTap={this.openDrugDialog.bind(this)}
@@ -96,14 +84,11 @@ class Scaffold extends React.Component {
                     </FloatingActionButton>
                 </div>
 
-                <AppBar
-                title="My Capsules"
-                style={appbarStyle}
-                />
+                {/* Header */}
+                <Header />
 
-                <Clearfix
-                style={clearfixStyle}
-                >
+                {/* Drugs List */}
+                <Clearfix style={{position: 'relative', top: 50}}>
                     <ListDrugs />
                 </Clearfix>
             </div>

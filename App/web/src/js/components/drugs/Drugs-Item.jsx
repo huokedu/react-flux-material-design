@@ -8,10 +8,14 @@ import FontIcon from 'material-ui/lib/font-icon';
 import Avatar from 'material-ui/lib/avatar';
 
 // Private Properties and Methods
-const _verifyHour = (nextTakeHour) => {
-    nextTakeHour = new Date(nextTakeHour);
+const _verifyHour = (drug) => {
+    const nextTakeHour = new Date(drug.nextTakeHour);
+    const nextTakeDate = new Date(drug.nextTakeDate);
+    let fullNextTakeDate = new Date(nextTakeDate.toDateString() + ' ' + nextTakeHour.getHours() + ':' + nextTakeHour.getMinutes());
+    fullNextTakeDate = fullNextTakeDate.getTime();
+
     const currentHour = new Date();
-    const milisecondsLeft = nextTakeHour - currentHour;
+    const milisecondsLeft = fullNextTakeDate - currentHour;
 
     const minutesLeft = Math.round((milisecondsLeft / 1000) / 60);
 
@@ -20,19 +24,23 @@ const _verifyHour = (nextTakeHour) => {
         enablingDrug = false;
     }
 
+    fullNextTakeDate = null;
+
     return enablingDrug;
 };
 
-const _dateFormat = (date) => {
-    const dateDifference = new Date(date) - Date.now();
-    let dateFormat = '';
-    if (0 < dateDifference) {
-        dateFormat = Moment().add(dateDifference, 'ms').calendar()
-    } else {
-        dateFormat = Moment().subtract(Math.abs(dateDifference), 'ms').calendar()
-    }
+const _dateFormat = (nextTakeDate) => {
+    let nextDate = new Date(nextTakeDate);
+    nextDate = Moment(new Date(nextDate)).format('dddd, MMM Do YYYY')
 
-    return dateFormat;
+    return nextDate;
+};
+
+const _hourFormat = (nextTakeHour) => {
+    let nextHour = new Date(nextTakeHour);
+    nextHour = Moment(new Date(nextHour)).format('h:mm a')
+
+    return nextHour;
 };
 
 class DrugItem extends React.Component {
@@ -43,8 +51,9 @@ class DrugItem extends React.Component {
 
     render () {
 
-        const enablingDrug = _verifyHour(this.props.drug.nextTakeHour);
-        const dateFormat = _dateFormat(this.props.drug.nextTakeHour);
+        const enablingDrug = _verifyHour(this.props.drug);
+        const dateFormat = _dateFormat(this.props.drug.nextTakeDate);
+        const hourFormat = _hourFormat(this.props.drug.nextTakeHour);
 
         return (
             <div>
@@ -53,17 +62,18 @@ class DrugItem extends React.Component {
                     <Avatar
                     icon={
                         <FontIcon className="material-icons">
-                            {enablingDrug ? 'notifications_none' : 'notifications_active'}
+                            {enablingDrug ? 'local_drink' : 'local_drink'}
                         </FontIcon>
                         }
-                    color={Colors.white}
-                    backgroundColor={enablingDrug ? Colors.gray400 : Colors.blue900 }
+                    color={enablingDrug ? Colors.grey400 : Colors.blue900}
+                    backgroundColor={Colors.white}
                     />
                 }
                 primaryText={
                     <div>
                         <span>{dateFormat}</span>
                         <br />
+                        <span>{hourFormat}</span>
                         <span style={{color: Colors.yellow900, fontSize: 10}}> ({this.props.drug.howoften} Hours)</span>
                         <br />
                         <span style={{color: Colors.blue500}}>{this.props.drug.name}</span>

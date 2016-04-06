@@ -56,6 +56,7 @@ class RightIconMenu extends React.Component {
         const newHour = new Date();
         newHour.setHours(currentDate.getHours() + Number(this.props.drug.howoften));
         this.props.drug.nextTakeHour = newHour;
+        this.props.drug.nextTakeDate = newHour;
 
         fluxDispatcher.dispatch({
             actionType: 'Drug-taken',

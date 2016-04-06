@@ -6,7 +6,7 @@ import React from 'react';
 import drugsStore from '../../components/drugs/Drugs-Store';
 
 // Drug Item
-import DrugItem from './Drugs-Item';
+import DrugItem from './Drugs-Item.jsx';
 
 // Messages List
 import List from 'material-ui/lib/lists/list';
@@ -28,6 +28,10 @@ class Drugs extends React.Component {
 
     componentDidMount () {
         drugsStore.on('CHANGE', this._onChange.bind(this));
+    }
+
+    componentWillUnmount () {
+        drugsStore.removeListener('CHANGE', this._onChange.bind(this));
     }
 
     _onChange () {
