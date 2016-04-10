@@ -6,7 +6,7 @@ import React from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 
 // Drugs Store
-import drugsStore from '../../components/drugs/Drugs-Store';
+import drugsStore from '../../components/drugs/Drugs-Store.jsx';
 
 // Badge
 import Badge from './Header-Badge.jsx';

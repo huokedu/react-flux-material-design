@@ -2,7 +2,7 @@
 
 import fluxDispatcher from '../../dispatcher/FluxDispatcher';
 import scaffoldStore from '../../views/scaffold/Scaffold-Store';
-import drugStore from '../../components/drugs/Drugs-Store';
+import drugStore from '../../components/drugs/Drugs-Store.jsx';
 
 
 fluxDispatcher.register(function (payload) {

@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Drugs Store
-import drugsStore from '../../components/drugs/Drugs-Store';
+import drugsStore from '../../components/drugs/Drugs-Store.jsx';
 
 // Drug Item
 import DrugItem from './Drugs-Item.jsx';

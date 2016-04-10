@@ -11,7 +11,7 @@ import DatePicker from 'material-ui/lib/date-picker/date-picker';
 import TimePicker from 'material-ui/lib/time-picker/time-picker';
 
 // Drug Store
-import drugsStore from '../../drugs/Drugs-Store';
+import drugsStore from '../../drugs/Drugs-Store.jsx';
 
 // Private Properties and Methods
 const _nextTakeHour = (nextTakeHour) => {
